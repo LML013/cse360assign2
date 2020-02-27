@@ -1,8 +1,11 @@
+package src;
+
 /**
  * The SimpleList class uses two private variables, list and count,
  * to maintain and modify a list of 10 integers.
  * 
  * @author lmluna3
+ * Class ID 192
  */
 public class SimpleList {
 	/**
@@ -33,6 +36,20 @@ public class SimpleList {
 	 * @param number
 	 */
 	public void add(int number) {
+		//checks to see if the array is full
+		if (this.list.length == this.count) {
+			// creates a temporary array with the new length that is 1.5 times 
+			// the length of the previous list 
+			int[] tempList = 
+					new int[(this.list.length * 150) / 100];
+			// for loop copies over values from previous array to temp array
+			for(int index = 0; index < this.list.length; index++) {
+				tempList[index] = this.list[index];
+			}
+			// replaces old array with new array
+			this.list = tempList;
+		}
+		
 		// for loop shifts all values in the array one index higher
 		for (int index = this.list.length - 2; index >= 0; index--) {
 			this.list[index + 1] = this.list[index];
@@ -41,10 +58,8 @@ public class SimpleList {
 		// sets the first array index position to number input
 		this.list[0] = number;
 		
-		// increments counter but not above 10
-		if (this.count <= 9) {
-			this.count++;
-		}
+		
+		this.count++;
 	}
 	
 	/**
@@ -79,6 +94,28 @@ public class SimpleList {
 			}
 			this.count--;
 		}
+		
+		// checks to see if 25% of the list is empty by seeing if
+		// count is less than 75% of the overall length
+		if (this.count < ((this.list.length * 75) / 100)) {
+			if(this.count > 1) {
+			
+				// creates a temporary array with a new length that is
+				// .75 + 1 times the length of the previous list 
+				// the + 1 is to account for any rounding weirdness and might
+				// be exploited to create a memory issue but
+				// the risk is acceptable
+				int[] tempList = 
+					new int[((this.list.length * 75) / 100) + 1];
+				// for loop copies over values from previous array to temp array
+				for(int index = 0; index < this.list.length; index++) {
+					tempList[index] = this.list[index];
+				}
+				// replaces old array with new array
+				this.list = tempList;
+			}
+		}
+		
 		return;
 	}
 	/**
