@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
  * of class SimpleList.
  * 
  * @author lmluna3
+ * Class ID 192
  *
  */
 class SimpleListTest {
@@ -150,7 +151,6 @@ class SimpleListTest {
 		simpleList.remove(1);
 		assertTrue(simpleList.toString().contentEquals(""));
 	}
-	
 
 	/**
 	 * Adds 11 integers to the list array,
@@ -226,4 +226,127 @@ class SimpleListTest {
 		simpleList.add(3);
 		assertTrue(simpleList.search(0) == -1);
 	}	
+
+	/*
+	 * Checks when append does not need to increase the size of the array
+	 */
+	@Test
+	void testAppend() {
+		SimpleList simpleList = new SimpleList();
+		simpleList.add(1);
+		simpleList.add(2);
+		simpleList.add(3);
+		simpleList.append(4);
+		assertTrue(simpleList.toString()
+				.contentEquals("3 2 1 4"));
+	}
+	
+	/*
+	 * Checks when append does not need to increase the size of the array
+	 */
+	@Test
+	void testAppend2() {
+		SimpleList simpleList = new SimpleList();
+		simpleList.add(1);
+		simpleList.add(2);
+		simpleList.add(3);
+		simpleList.add(4);
+		simpleList.add(5);
+		simpleList.add(6);
+		simpleList.add(7);
+		simpleList.add(8);
+		simpleList.add(9);
+		simpleList.add(10);
+		simpleList.add(11);
+		simpleList.append(12);
+		assertTrue(simpleList.toString()
+				.contentEquals("11 10 9 8 7 6 5 4 3 2 1 12"));
+	}
+
+	/*
+	 * Checks situation of an empty list returning -1
+	 */
+	@Test
+	void testFirst1() {
+		SimpleList simpleList = new SimpleList();
+		assertTrue(simpleList.first() == -1);
+	}
+	
+	/*
+	 * Checks situation of returning the first item of a list
+	 */
+	@Test
+	void testFirst2() {
+		SimpleList simpleList = new SimpleList();
+		simpleList.add(1);
+		assertTrue(simpleList.first() == 1);
+	}	
+	
+	/*
+	 * Checks situation of an empty list returning -1
+	 */
+	@Test
+	void testLast1() {
+		SimpleList simpleList = new SimpleList();
+		assertTrue(simpleList.last() == -1);
+	}
+	
+	/*
+	 * Checks situation of returning the last item of a list
+	 */
+	@Test
+	void testLast2() {
+		SimpleList simpleList = new SimpleList();
+		simpleList.add(1);
+		simpleList.add(2);
+		assertTrue(simpleList.last() == 1);
+	}	
+	
+	/*
+	 * Checks size is working and list is initially length 10
+	 */
+	@Test
+	void testSize1() {
+		SimpleList simpleList = new SimpleList();
+		assertTrue(simpleList.size() == 10);
+	}	
+	
+	/*
+	 * Checks size is working and list expands to 15 after 11 items are added
+	 */
+	@Test
+	void testSize2() {
+		SimpleList simpleList = new SimpleList();
+		simpleList.add(1);
+		simpleList.add(2);
+		simpleList.add(3);
+		simpleList.add(4);
+		simpleList.add(5);
+		simpleList.add(6);
+		simpleList.add(7);
+		simpleList.add(8);
+		simpleList.add(9);
+		simpleList.add(10);
+		simpleList.add(11);
+		assertTrue(simpleList.size() == 15);
+	}	
+	
+	/*
+	 * Checks size is working and list contracts to 7 after 6 items are added
+	 * and one is removed
+	 */
+	@Test
+	void testSize3() {
+		SimpleList simpleList = new SimpleList();
+		simpleList.add(1);
+		simpleList.add(2);
+		simpleList.add(3);
+		simpleList.add(4);
+		simpleList.add(5);
+		simpleList.add(6);
+		simpleList.remove(6);
+		System.out.println(simpleList.size());
+		assertTrue(simpleList.size() == 7);
+	}
+	
 }

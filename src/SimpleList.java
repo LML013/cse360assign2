@@ -1,8 +1,23 @@
 package src;
 
 /**
- * The SimpleList class uses two private variables, list and count,
+ * The SimpleList class uses two private variables
+ * - list: int[]
+ * - count: int
  * to maintain and modify a list of 10 integers.
+ * 
+ * Simplelist contains a number of methods to modify and manipulate the list of
+ * integers including:
+ * + add(int)
+ * + remove(int)
+ * + count(): int
+ * + toString(): String
+ * + search(int): int
+ * + append(int)
+ * + first(): int
+ * + last(): int
+ * - increaseList50Percent()
+ * + size(): int
  * 
  * @author lmluna3
  * Class ID 192
@@ -38,16 +53,7 @@ public class SimpleList {
 	public void add(int number) {
 		//checks to see if the array is full
 		if (this.list.length == this.count) {
-			// creates a temporary array with the new length that is 1.5 times 
-			// the length of the previous list 
-			int[] tempList = 
-					new int[(this.list.length * 150) / 100];
-			// for loop copies over values from previous array to temp array
-			for(int index = 0; index < this.list.length; index++) {
-				tempList[index] = this.list[index];
-			}
-			// replaces old array with new array
-			this.list = tempList;
+			increaseList50Percent();
 		}
 		
 		// for loop shifts all values in the array one index higher
@@ -101,14 +107,11 @@ public class SimpleList {
 			if(this.count > 1) {
 			
 				// creates a temporary array with a new length that is
-				// .75 + 1 times the length of the previous list 
-				// the + 1 is to account for any rounding weirdness and might
-				// be exploited to create a memory issue but
-				// the risk is acceptable
+				// .75 times the length of the previous list 
 				int[] tempList = 
-					new int[((this.list.length * 75) / 100) + 1];
+					new int[((this.list.length * 75) / 100)];
 				// for loop copies over values from previous array to temp array
-				for(int index = 0; index < this.list.length; index++) {
+				for(int index = 0; index < tempList.length; index++) {
 					tempList[index] = this.list[index];
 				}
 				// replaces old array with new array
@@ -125,7 +128,6 @@ public class SimpleList {
 		return this.count;
 	}
 	
-	//TODO: Implement
 	/**
 	 * Prints out a string of the list array with spaces
 	 * 
@@ -168,4 +170,74 @@ public class SimpleList {
 		
 		return searchIndex;
 	}
+	
+	/**
+	 * Adds the number to the end of the list, if the list is full
+	 * increases list size then adds the number to the end of the list
+	 */
+	public void append(int number) {
+		// checks to see if count(list index) is 1 less than the list's length
+		// (at last index)
+		if (this.count == this.list.length - 1) {
+			increaseList50Percent();
+			this.list[this.count] = number;
+			this.count++;
+		} 
+		// puts the number at the end of the list and increments the counter
+		else {
+			this.list[this.count] = number;
+			this.count++;
+		}
+	}
+	
+	/*
+	 * Returns the first item in the list. If list is empty, returns -1
+	 */
+	public int first() {
+		if (this.count == 0) {
+			return -1;
+		}
+		else {
+			return this.list[0];
+		}
+		
+	}
+	
+	/*
+	 * Returns the last item in the list. If the list is empty, returns -1
+	 */
+	public int last() {
+		if (this.count == 0) {
+			return -1;
+		}
+		else {
+			return this.list[this.count() - 1];
+		}
+	}
+	
+	/**
+	 * Increases the length of the list array by 50%
+	 */
+	private void increaseList50Percent() {
+		// creates a temporary array with the new length that is 1.5 times 
+		// the length of the previous list 
+		int[] tempList = 
+				new int[(this.list.length * 150) / 100];
+		// for loop copies over values from previous array to temp array
+		for(int index = 0; index < this.list.length; index++) {
+			tempList[index] = this.list[index];
+		}
+		// replaces old array with new array
+		this.list = tempList;
+	}
+	
+	/*
+	 * Returns the current number of possible locations in the list, aka,
+	 * the length of the list array
+	 */
+	public int size() {
+		return this.list.length;
+	}
+	
+	
 }
